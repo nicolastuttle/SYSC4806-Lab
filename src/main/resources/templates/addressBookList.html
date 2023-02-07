@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Address Books!!</title>
+</head>
+<body>
+    <div>
+        <table th:unless="${books.isEmpty()}">
+            <tr>
+                <th>ID</th>
+                <th>Details</th>
+            </tr>
+            <tr th:each="book : ${books}">
+                <td><a th:href="${book.getId()}" th:text="${book.getId()}" /></td>
+                <td th:text="${book.toString()}" />
+            </tr>
+        </table>
+        <p th:if="${books.isEmpty()}">There are no address books to display.</p>
+    </div>
+
+    <form method="post">
+        <button type="submit">New address book</button>
+    </form>
+</body>
+</html>
