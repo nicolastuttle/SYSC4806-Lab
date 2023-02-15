@@ -1,0 +1,55 @@
+.hidden {
+    display: none;
+}
+
+.book-details {
+    border: double gray;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+.popup {
+    position: absolute;
+    z-index: 100;
+    margin-top: -30px;
+    margin-left: 75px;
+    padding: 10px;
+    background-color: white;
+    border: solid;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.popup div {
+    padding-bottom: 2px;
+}
+
+table {
+    border: double gray;
+    border-radius: 5px;
+    padding: 4px;
+    margin: 2px 0;
+    text-align: center;
+}
+
+button {
+    padding: 4px;
+    background-color: darkgray;
+}
+
+.content {
+    display: inline;
+    float: left;
+    min-width: 300px;
+}
+
+#delete-book, .delete-buddy {
+    background-color: #b00;
+    color: white;
+}

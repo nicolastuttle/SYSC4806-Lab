@@ -22,18 +22,18 @@
           <td th:text="${buddy.getName()}" />
           <td th:text="${buddy.getPhoneNumber()}" />
           <td>
-            <form th:action="'/' + ${book.getId()} + '/' + ${buddy.getId()}" method="post">
+            <form th:action="${book.getId()} + '/' + ${buddy.getId()}" method="post">
               <input type="submit" value="Delete" />
             </form>
           </td>
         </tr>
       </table>
-      <a th:href="'/' + ${book.getId()} + '/add'">
+      <a th:href="${book.getId()} + '/add'">
         <button>Add buddy</button>
       </a>
     </div>
   </div>
-  <a href="/">
+  <a href="/addressBook/">
     <button>Back</button>
   </a>
 </body>

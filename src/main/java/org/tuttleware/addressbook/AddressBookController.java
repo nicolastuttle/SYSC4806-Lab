@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequestMapping("/addressBook")
 public class AddressBookController {
     private final AddressBookService service;
 
@@ -26,7 +27,7 @@ public class AddressBookController {
     @PostMapping("/")
     public String create() {
         this.service.create();
-        return "redirect:/";
+        return "redirect:/addressBook/";
     }
 
     @GetMapping("/{bookId}")
@@ -41,7 +42,7 @@ public class AddressBookController {
     public String addBuddy(@PathVariable Integer bookId, Model model) {
         AddressBook book = this.service.details(bookId);
         if (book == null) {
-            return "redirect:/";
+            return "redirect:/addressBook/";
         }
 
         model.addAttribute("bookId", bookId);
@@ -51,12 +52,12 @@ public class AddressBookController {
     @PostMapping("/{bookId}/add")
     public String addBuddy(@PathVariable Integer bookId, @RequestParam String name, @RequestParam String phoneNumber) {
         this.service.addBuddy(bookId, name, phoneNumber);
-        return "redirect:/" + bookId;
+        return "redirect:/addressBook/" + bookId;
     }
 
     @PostMapping("/{bookId}/{buddyId}")
     public String deleteBuddy(@PathVariable Integer bookId, @PathVariable Integer buddyId) {
         this.service.deleteBuddy(bookId, buddyId);
-        return "redirect:/" + bookId;
+        return "redirect:/addressBook/" + bookId;
     }
 }

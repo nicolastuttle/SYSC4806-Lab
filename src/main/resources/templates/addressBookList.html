@@ -1,26 +1,72 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Address Books!!</title>
-</head>
-<body>
-    <div>
-        <table th:unless="${books.isEmpty()}">
-            <tr>
-                <th>ID</th>
-                <th>Details</th>
-            </tr>
-            <tr th:each="book : ${books}">
-                <td><a th:href="${book.getId()}" th:text="${book.getId()}" /></td>
-                <td th:text="${book.toString()}" />
-            </tr>
-        </table>
-        <p th:if="${books.isEmpty()}">There are no address books to display.</p>
-    </div>
+    <head>
+        <meta charset="UTF-8">
+        <title>Address Books!!</title>
+        <link th:href="@{/css/main.css}" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js" type="text/javascript"></script>
+        <script th:src="@{/js/main.js}" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="content">
+            <form method="post">
+                <button id="new-address-book" type="submit">New address book</button>
+            </form>
 
-    <form method="post">
-        <button type="submit">New address book</button>
-    </form>
-</body>
+            <div>
+                <table th:classappend="${books.isEmpty() ? 'hidden' : ''}" id="book-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Details</th>
+                    </tr>
+                    </thead>
+                    <tbody id="address-book-list">
+                    <tr th:each="book : ${books}">
+                        <td><a th:href="${book.getId()}" th:text="${book.getId()}" /></td>
+                        <td th:text="${book.toString()}" />
+                    </tr>
+                    </tbody>
+                </table>
+                <p th:classappend="${books.isEmpty() ? '' : 'hidden'}" id="no-book-message">There are no address books to display.</p>
+            </div>
+        </div>
+
+        <div class="content">
+            <div id="book-display" class="hidden">
+                <h3 id="book-title">Placeholder</h3>
+                <input id="book-id" type="hidden" />
+                <p id="no-buddies-message">There are no buddies associated with this book.</p>
+                <table id="buddy-table">
+                    <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Phone number
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="buddy-list"></tbody>
+                </table>
+                <button id="add-buddy">Add buddy</button>
+                <button id="delete-book">Delete book</button>
+                <div id="buddy-details" class="popup">
+                    <div>
+                        <label for="buddy-name">Name:</label>
+                        <input type="text" id="buddy-name" />
+                    </div>
+                    <div>
+                        <label for="buddy-phone-number">Phone Number:</label>
+                        <input type="tel" id="buddy-phone-number" />
+                    </div>
+                    <div>
+                        <button id="confirm-add">Add</button>
+                        <button id="cancel-add">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

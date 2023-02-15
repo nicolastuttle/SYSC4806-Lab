@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/addressBook")
+@RequestMapping("/api/addressBook")
 public class AddressBookService {
     private final AddressBookRepository repo;
 
