@@ -27,7 +27,7 @@ public class RequestTest {
 
     @Test
     public void testHomePageNoBooks() throws Exception {
-        this.mockMvc.perform(get("/"))
+        this.mockMvc.perform(get("/addressBook/"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("There are no address books to display.")));
     }
@@ -35,14 +35,14 @@ public class RequestTest {
     @Test
     public void testEmptyBookDetailsPage() throws Exception {
         when(service.details(1)).thenReturn(new AddressBook());
-        this.mockMvc.perform(get("/1"))
+        this.mockMvc.perform(get("/addressBook/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("There are no buddies associated with this book.")));
     }
 
     @Test
     public void testNoBookDetailsPage() throws Exception {
-        this.mockMvc.perform(get("/2"))
+        this.mockMvc.perform(get("/addressBook/2"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("This book does not exist.")));
     }
@@ -54,7 +54,7 @@ public class RequestTest {
         book.setId(9999);
         books.add(book);
         when(service.list()).thenReturn(books);
-        this.mockMvc.perform(get("/"))
+        this.mockMvc.perform(get("/addressBook/"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("9999")));
     }

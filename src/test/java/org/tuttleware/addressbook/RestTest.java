@@ -36,7 +36,7 @@ public class RestTest {
 
         List<AddressBook> books = new ArrayList<>();
         repository.findAll().forEach(books::add);
-        ResponseEntity<AddressBook[]> response = restTemplate.getForEntity("/addressBook", AddressBook[].class);
+        ResponseEntity<AddressBook[]> response = restTemplate.getForEntity("/api/addressBook", AddressBook[].class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
 
@@ -47,7 +47,7 @@ public class RestTest {
 
     @Test
     public void testCreateAddressBook() {
-        ResponseEntity<Integer> response = restTemplate.postForEntity("/addressBook", null, Integer.class);
+        ResponseEntity<Integer> response = restTemplate.postForEntity("/api/addressBook", null, Integer.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertTrue(response.getBody() > 0);
@@ -60,7 +60,7 @@ public class RestTest {
         repository.save(a);
 
         ResponseEntity<AddressBook> response = restTemplate.getForEntity(
-                "/addressBook/" + a.getId(),
+                "/api/addressBook/" + a.getId(),
                 AddressBook.class
         );
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -71,7 +71,7 @@ public class RestTest {
     @Test
     public void testGetNonExistentAddressBook() {
         ResponseEntity<AddressBook> response = restTemplate.getForEntity(
-                "/addressBook/" + UNUSED_ID,
+                "/api/addressBook/" + UNUSED_ID,
                 AddressBook.class
         );
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -88,7 +88,7 @@ public class RestTest {
         params.add("phoneNumber", "613-123-1234");
 
         ResponseEntity<Boolean> response = restTemplate.postForEntity(
-                "/addressBook/" + a.getId(),
+                "/api/addressBook/" + a.getId(),
                 params,
                 Boolean.class
         );
@@ -108,7 +108,7 @@ public class RestTest {
         params.add("phoneNumber", "613-123-1234");
 
         ResponseEntity<Boolean> response = restTemplate.postForEntity(
-                "/addressBook/" + UNUSED_ID,
+                "/api/addressBook/" + UNUSED_ID,
                 params,
                 Boolean.class
         );
@@ -123,7 +123,7 @@ public class RestTest {
         repository.save(a);
 
         ResponseEntity<Boolean> response = restTemplate.exchange(
-                "/addressBook/" + a.getId(),
+                "/api/addressBook/" + a.getId(),
                 HttpMethod.DELETE,
                 HttpEntity.EMPTY,
                 Boolean.class
@@ -137,7 +137,7 @@ public class RestTest {
     @Test
     public void testDeleteNotExistentBook() {
         ResponseEntity<Boolean> response = restTemplate.exchange(
-                "/addressBook/" + UNUSED_ID,
+                "/api/addressBook/" + UNUSED_ID,
                 HttpMethod.DELETE,
                 HttpEntity.EMPTY,
                 Boolean.class
@@ -155,7 +155,7 @@ public class RestTest {
         repository.save(a);
 
         ResponseEntity<Boolean> response = restTemplate.exchange(
-                "/addressBook/" + a.getId() + "/" + b.getId(),
+                "/api/addressBook/" + a.getId() + "/" + b.getId(),
                 HttpMethod.DELETE,
                 HttpEntity.EMPTY,
                 Boolean.class
@@ -174,7 +174,7 @@ public class RestTest {
         repository.save(a);
 
         ResponseEntity<Boolean> response = restTemplate.exchange(
-                "/addressBook/" + a.getId() + "/" + UNUSED_ID,
+                "/api/addressBook/" + a.getId() + "/" + UNUSED_ID,
                 HttpMethod.DELETE,
                 HttpEntity.EMPTY,
                 Boolean.class
@@ -187,7 +187,7 @@ public class RestTest {
     @Test
     public void testDeleteBuddyFromNonExistentBook() {
         ResponseEntity<Boolean> response = restTemplate.exchange(
-                "/addressBook/" + UNUSED_ID + "/1",
+                "/api/addressBook/" + UNUSED_ID + "/1",
                 HttpMethod.DELETE,
                 HttpEntity.EMPTY,
                 Boolean.class
